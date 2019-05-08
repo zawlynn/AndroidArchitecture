@@ -1,4 +1,4 @@
-package com.zawlynn.movie.mvvm.ui;
+package com.zawlynn.movie.mvvm.ui.main;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
@@ -8,18 +8,20 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.zawlynn.movie.mvvm.model.Movie;
 import com.zawlynn.movie.mvvm.network.Resource;
 import com.zawlynn.movie.mvvm.repository.ApiRepository;
 import com.zawlynn.movie.mvvm.repository.RepoLocalSource;
 
+import java.util.List;
+
 public class MainViewModel extends AndroidViewModel {
-    ApiRepository repository;
-    RepoLocalSource localSource;
-    MutableLiveData movies = new MutableLiveData();
+    private ApiRepository repository;
+    MutableLiveData<List<Movie>> movies = new MutableLiveData();
 
     public MainViewModel(@NonNull Application application) {
         super(application);
-        localSource = RepoLocalSource.getInstance(application);
+        RepoLocalSource localSource = RepoLocalSource.getInstance(application);
         repository = new ApiRepository(localSource);
     }
 

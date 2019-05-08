@@ -7,11 +7,9 @@ import java.util.List;
 
 public class PopularResponse {
     @SerializedName("results")
-    private
-    List<Movie> results;
+    private List<Movie> results;
     @SerializedName("total_pages")
-    private
-    int total_pages;
+    private int total_pages;
 
     public List<Movie> getResults() {
         return results;

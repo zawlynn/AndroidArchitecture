@@ -3,6 +3,8 @@ package com.zawlynn.movie.mvvm.model;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+import android.support.v7.util.DiffUtil;
 
 @Entity(tableName = "movies")
 public class Movie {
@@ -149,5 +151,15 @@ public class Movie {
 
     public void setRelease_date(String release_date) {
         this.release_date = release_date;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this)
+            return true;
+
+        Movie user = (Movie) obj;
+
+        return user.getId() == this.getId() && user.getTitle() == this.getTitle();
     }
 }

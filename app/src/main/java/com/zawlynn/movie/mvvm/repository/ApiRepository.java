@@ -25,7 +25,6 @@ public class ApiRepository {
     @SuppressLint("CheckResult")
     public Flowable<Resource<List<Movie>>>  getPopularMovies(Context context) {
         return new  NetworkBoundResource<List<Movie>, PopularResponse>(context) {
-
             @Override
             protected void saveCallResult(PopularResponse request) {
                 Log.d("MOVIE REPOSITORY","Save Call Result");

@@ -18,7 +18,7 @@ import retrofit2.Response;
 public abstract class NetworkBoundResource<ResultType, RequestType> {
     private Flowable<Resource<ResultType>> result;
 
-    public NetworkBoundResource(Context context) {
+    protected NetworkBoundResource(Context context) {
 
         Flowable<ResultType> diskObservable= Flowable.defer(() -> loadFromDb()
                 .subscribeOn(Schedulers.io()));
@@ -36,12 +36,12 @@ public abstract class NetworkBoundResource<ResultType, RequestType> {
 
         if(isNetworkStatusAvailable(context)){
            result= networkObservable.map(Resource::success)
-                    .onErrorReturn(throwable -> Resource.error("error", null))
+                    .onErrorReturn(throwable -> Resource.error(throwable.getMessage(), null))
                     .observeOn(AndroidSchedulers.mainThread())
                     .startWith(Resource.loading(null));
         }else {
             result= diskObservable.map(Resource::success)
-                    .onErrorReturn(throwable -> Resource.error("error", null))
+                    .onErrorReturn(throwable -> Resource.error(throwable.getMessage(), null))
                     .observeOn(AndroidSchedulers.mainThread())
                     .startWith(Resource.loading(null));
         }
