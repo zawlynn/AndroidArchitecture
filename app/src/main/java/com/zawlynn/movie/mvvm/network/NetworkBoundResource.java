@@ -2,6 +2,7 @@ package com.zawlynn.movie.mvvm.network;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import org.reactivestreams.Publisher;
 
@@ -53,7 +54,8 @@ public abstract class NetworkBoundResource<ResultType, RequestType> {
 
     private boolean isNetworkStatusAvailable(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        return connectivityManager.getActiveNetworkInfo().isConnected();
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     public Flowable<Resource<ResultType>> asFlowable() {
